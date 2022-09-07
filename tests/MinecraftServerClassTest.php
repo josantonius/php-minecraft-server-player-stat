@@ -134,7 +134,7 @@ class MinecraftServerClassTest extends TestCase
     public function test_should_get_available_players(): void
     {
         $players = $this->minecraftServer->getPlayerList();
-        var_export($players);
+
         $this->assertIsArray($players);
         $this->assertNotEmpty($players);
 
@@ -152,5 +152,37 @@ class MinecraftServerClassTest extends TestCase
         $this->assertEquals('28db6663-6166-3a17-a057-00e4eab214eb', $players['user6']);
         $this->assertEquals('9de7b4a0-e911-366d-9a0c-f56b62ff58e7', $players['user7']);
         $this->assertEquals('9dfc997b-c172-3f83-af3e-7062f773455a', $players['user8']);
+    }
+
+    public function test_should_ignore_accents_if_the_language_is_spanish(): void
+    {
+        $server   = 'spigot';
+        $version  = '1.17';
+        $language = 'es_es';
+
+        $basePath = __DIR__ . "/minecraft/{$server}/{$version}/{$language}";
+
+        $logsPath    = "{$basePath}/logs";
+        $statsPath   = "{$basePath}/stats";
+        $storagePath = "{$basePath}/storage";
+
+        $minecraftServer = new MinecraftServer(
+            version: $version,
+            language: $language,
+            logsPath: $logsPath,
+            statsPath: $statsPath,
+            storagePath: $storagePath,
+        );
+
+        $this->assertArrayHasKey(
+            'tiempo desde la ultima muerte',
+            $minecraftServer->getAvailableStats()
+        );
+
+        unlink("{$storagePath}/{$version}/{$language}/players.json");
+        unlink("{$storagePath}/{$version}/{$language}/terms.json");
+
+        rmdir("{$storagePath}/{$version}/{$language}");
+        rmdir("{$storagePath}/{$version}");
     }
 }
