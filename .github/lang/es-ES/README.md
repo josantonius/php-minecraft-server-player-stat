@@ -9,99 +9,100 @@
 [![PSR4](https://img.shields.io/badge/PSR-4-9b59b6.svg)](https://www.php-fig.org/psr/psr-4/)
 [![PSR12](https://img.shields.io/badge/PSR-12-1abc9c.svg)](https://www.php-fig.org/psr/psr-12/)
 
-**Translations**: [Español](.github/lang/es-ES/README.md)
+**Traducciones**: [English](/README.md)
 
-PHP library to get live statistics about players on Minecraft servers.
+Biblioteca PHP para obtener estadísticas en vivo sobre jugadores en servidores de Minecraft.
 
 ---
 
-- [Requirements](#requirements)
-- [Relevant details](#relevant-details)
-- [Installation](#installation)
-- [Available Classes](#available-classes)
-  - [MinecraftServer Class](#minecraftserver-class)
-  - [MinecraftPlayerStat Instance](#minecraftplayerstat-instance)
-- [Exceptions Used](#exceptions-used)
-- [Usage](#usage)
+- [Requisitos](#requisitos)
+- [Detalles relevantes](#detalles-relevantes)
+- [Instalación](#instalación)
+- [Clases disponibles](#clases-disponibles)
+  - [Clase MinecraftServer](#clase-minecraftserver)
+  - [Instancia MinecraftPlayerStat](#instancia-minecraftplayerstat)
+- [Excepciones utilizadas](#excepciones-utilizadas)
+- [Uso](#uso)
 - [Tests](#tests)
-- [TODO](#todo)
-- [Changelog](#changelog)
-- [Contribution](#contribution)
-- [Sponsor](#sponsor)
-- [License](#license)
+- [Tareas pendientes](#tareas-pendientes)
+- [Registro de Cambios](#registro-de-cambios)
+- [Contribuir](#contribuir)
+- [Patrocinar](#patrocinar)
+- [Licencia](#licencia)
 
 ---
 
-## Requirements
+## Requisitos
 
-- This library is compatible with the PHP versions: 8.1.
+- Esta biblioteca es compatible con las versiones de PHP: 8.1.
 
-- Minecraft Server: [Spigot](https://www.spigotmc.org/).
+- Servidor de Minecraft: [Spigot](https://www.spigotmc.org/).
 
-- Minecraft Versión: 1.17.
+- Versión de Minecraft: 1.17.
 
-- Operating System: Linux | Windows.
+- Sistema operativo: Linux | Windows.
 
-## Relevant details
+## Detalles relevantes
 
-- This library was developed for an application running from the PHP command line (CLI), specifically
-to power a Twitch bot that displayed live player statistics. I do not recommend using it for a web
-environment, although it will work.
+- Esta biblioteca fue desarrollada para una aplicación que se ejecutaba desde la línea de comandos
+(CLI) de PHP, específicamente para alimentar un bot de Twitch que mostraba las estadísticas de los
+jugadores en vivo. No recomiendo su uso para un entorno web, aunque funcionaría.
 
-  ![alt](.resources/example-minecraft-twitch-bot-en.png)
+  ![alt](/.resources/example-minecraft-twitch-bot-es.png)
 
-- It probably works for recent versions of the Spigot server, but I can't say for sure as it has only
-been tested with the requirements detailed above. Feel free to add new tests for other servers or
-Minecraft versions.
+- Es probable que funcione para las versiones recientes del servidor Spigot, pero no puedo asegurarlo
+ya que sólo se ha sido probado con los requisitos detallados anteriormente. Siéntete libre de agregar
+nuevas pruebas para otros servidores y/o versiones de Minecraft.
 
-- The available terms are set from the
+- Los términos disponibles se establecen desde el repositorio
 [minecraft-assets repository](https://github.com/InventivetalentDev/minecraft-assets/branches/all)
-of [InventivetalentDev](https://github.com/InventivetalentDev).
+de [InventivetalentDev](https://github.com/InventivetalentDev).
 
-## Installation
+## Instalación
 
-The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
+La mejor forma de instalar esta extensión es a través de [Composer](http://getcomposer.org/download/).
 
-To install **PHP Minecraft Server Player Stat library**, simply:
+Para instalar **PHP Minecraft Server Player Stat library**, simplemente escribe:
 
 ```console
 composer require josantonius/minecraft-server-player-stat
 ```
 
-The previous command will only install the necessary files,
-if you prefer to **download the entire source code** you can use:
+El comando anterior sólo instalará los archivos necesarios,
+si prefieres **descargar todo el código fuente** puedes utilizar:
 
 ```console
 composer require josantonius/minecraft-server-player-stat --prefer-source
 ```
 
-You can also **clone the complete repository** with Git:
+También puedes **clonar el repositorio** completo con Git:
 
 ```console
 git clone https://github.com/josantonius/php-minecraft-server-player-stat.git
 ```
 
-## Available Classes
+## Clases disponibles
 
-### MinecraftServer Class
+### Clase MinecraftServer
 
 `Josantonius\MinecraftServerPlayerStat\MinecraftServer`
 
-Create a new instance for the Minecraft server:
+Crea una nueva instancia para el servidor de Minecraft:
 
 ```php
 /**
- * @param string $version     Server version.
- * @param string $language    Server language.
- * @param string $logsPath    Server logs directory path.
- * @param string $statsPath   Server stats directory path.
- * @param string $storagePath Directory path where available terms and players will be stored.
+ * @param string $version     Versión del servidor.
+ * @param string $language    Idioma del servidor.
+ * @param string $logsPath    Ruta del directorio logs del servidor.
+ * @param string $statsPath   Ruta del directorio stats del servidor.
+ * @param string $storagePath Ruta del directorio donde almacenar los 
+ *                            términos disponibles y lista de jugadores.
  *
- * @throws MinecraftServerException      if the Minecraft version or language is not valid.
- * @throws UnreadableDirectoryException  if the logs or stats path is not valid.
- * @throws UnwriteableDirectoryException if the storage path is not valid.
+ * @throws MinecraftServerException      si la versión o el idioma de Minecraft no son válidos.
+ * @throws UnreadableDirectoryException  si la ruta de los registros o de las estadísticas no es válida.
+ * @throws UnwriteableDirectoryException si la ruta de almacenamiento no es válida.
  *
- * @see https://mcasset.cloud/1.19.2/assets/minecraft/lang to see available languages.
+ * @see https://mcasset.cloud/1.19.2/assets/minecraft/lang para ver idiomas disponibles.
  */
 public function __construct(
     private string $version,
@@ -112,149 +113,147 @@ public function __construct(
 );
 ```
 
-Gets details about certain player statistics:
+Obtener detalles sobre determinadas estadísticas de los jugadores:
 
 ```php
 /**
- * @param string $username Username in case insensitive.
- * @param string $term     Literal Minecraft term in case insensitive.
- *                         In Spanish, a term with accents can be written without them. 
- *                         For another languages accents are required.
+ * @param string $username El nombre de usuario sin distinguir entre mayúsculas y minúsculas.
+ * @param string $term     Término literal de Minecraft sin distinguir entre mayúsculas y minúsculas.
+ *                         En español, un término con tildes puede escribirse sin ellas. 
+ *                         Para otras lenguas se requieren las tildes.
  *
- * @throws WrongTermException       if the term is not valid.
- * @throws StatsNotFoundException   if the stats file is not found.
- * @throws UnknownUsernameException if the username is not valid.
+ * @throws WrongTermException       si el término no es válido.
+ * @throws StatsNotFoundException   si no se encuentra el archivo de estadísticas.
+ * @throws UnknownUsernameException si el nombre de usuario no es válido.
  */
 public function getPlayerStat(string $username, string $term): MinecraftPlayerStat;
 ```
 
-Get list of available statistics:
+Obtener estadísticas disponibles:
 
 ```php
 public function getAvailableStats(): array;
 ```
 
-Get list of players from the server:
+Obtener jugadores del servidor:
 
 ```php
 public function getPlayerList(): array;
 ```
 
-### MinecraftPlayerStat Instance
+### Instancia MinecraftPlayerStat
 
 `Josantonius\MinecraftServerPlayerStat\MinecraftPlayerStat`
 
-Number of broken items or null if there are no statistics:
+Número de artículos rotos o nulo si no hay estadísticas:
 
 ```php
 public readonly int|null $broken;
 ```
 
-Number of crafted items or null if there are no statistics:
+Número de artículos elaborados o nulo si no hay estadísticas:
 
 ```php
 public readonly int|null $crafted;
 ```
 
-Number of dropped items or null if there are no statistics:
+Número de elementos soltados o nulo si no hay estadísticas:
 
 ```php
 public readonly int|null $dropped;
 ```
 
-Number of killed mobs or null if there are no statistics:
+Número de mobs muertos o nulo si no hay estadísticas:
 
 ```php
 public readonly int|null $killed;
 ```
 
-Number of killed by mobs or null if there are no statistics:
+Número de muertes por mobs o nulo si no hay estadísticas:
 
 ```php
 public readonly int|null $killedBy;
 ```
 
-Number of mined items or null if there are no statistics:
+Número de elementos minados o nulo si no hay estadísticas:
 
 ```php
 public readonly int|null $mined;
 ```
 
-Number of picked up items or null if there are no statistics:
+Número de elementos recogidos o nulo si no hay estadísticas:
 
 ```php
 public readonly int|null $pickedUp;
 ```
 
-Number of used items or null if there are no statistics:
+Número de elementos utilizados o nulo si no hay estadísticas:
 
 ```php
 public readonly int|null $used;
 ```
 
-Custom statistics value or null if there are no statistics:
+Valor de las estadísticas personalizadas o nulo si no hay estadísticas:
 
 ```php
 /**
- * If the unit type is distance, this value is given in centimeters.
- * If the unit type is time, this value is given in ticks.
+ * Si el tipo de unidad es distancia, este valor se da en centímetros.
+ * Si el tipo de unidad es el tiempo, este valor se da en ticks.
  * 
- * @see https://minecraft.fandom.com/wiki/Tutorials/Units_of_measure to see the unit conversions.
+ * @see https://minecraft.fandom.com/wiki/Tutorials/Units_of_measure para ver las conversiones.
  */
 public readonly int|null $custom;
 ```
 
-Sanitized key for the term:
+Clave saneada para el término:
 
 ```php
 public readonly string $key;
 ```
 
-Term expressed in a nice way:
+Término expresado de forma agradable:
 
 ```php
 public readonly string $prettyTerm;
 ```
 
-Query term:
+Término de la consulta:
 
 ```php
 public readonly string $term;
 ```
 
-Item type:
+Tipo de elemento:
 
 ```php
 /**
- * Available types: block, entity, item, stat.
+ * Tipos disponibles: block, entity, item, stat.
  */
 public readonly string $type;
 ```
 
-Unit type:
+Tipo de unidad:
 
 ```php
 /**
- * Available types: amount, distance, time.
+ * Tipos disponibles: amount, distance, time.
  */
 public readonly string $unitType;
 ```
 
-Username for which the query is being made:
+Nombre de usuario para el que se realiza la consulta:
 
 ```php
 public readonly string $username;
 ```
 
-User UUID for which the query is being made:
+UUID del usuario para el que se realiza la consulta:
 
 ```php
 public readonly string $uuid;
 ```
 
-## Exceptions Used
-
-Example of use for this library:
+## Excepciones utilizadas
 
 ```php
 use Josantonius\MinecraftServerPlayerStat\Exceptions\WrongTermException;
@@ -265,9 +264,11 @@ use Josantonius\MinecraftServerPlayerStat\Exceptions\UnreadableDirectoryExceptio
 use Josantonius\MinecraftServerPlayerStat\Exceptions\UnwriteableDirectoryException;
 ```
 
-## Usage
+## Uso
 
-### Gets player statistics about blocks
+Ejemplo de uso para esta biblioteca:
+
+### Obtener las estadísticas del jugador sobre bloques
 
 ```php
 use Josantonius\MinecraftServerPlayerStat\MinecraftServer;
@@ -310,7 +311,7 @@ object(Josantonius\MinecraftServerPlayerStat\MinecraftPlayerStat) {
 }
 ```
 
-### Gets player statistics about distance
+### Obtener las estadísticas del jugador sobre distancia
 
 ```php
 use Josantonius\MinecraftServerPlayerStat\MinecraftServer;
@@ -336,7 +337,7 @@ echo "{$stat->username} voló una distancia de " . cmToKm($stat->custom) . ' kil
 object(Josantonius\MinecraftServerPlayerStat\MinecraftPlayerStat) {
    'broken'     => NULL,
    'crafted'    => NULL,
-   'custom'     => 585888, // centimeters
+   'custom'     => 585888, // centímetros
    'dropped'    => NULL,
    'killed'     => NULL,
    'killedBy'   => NULL,
@@ -353,7 +354,7 @@ object(Josantonius\MinecraftServerPlayerStat\MinecraftPlayerStat) {
 }
 ```
 
-### Gets player statistics about entities
+### Obtener las estadísticas del jugador sobre entidades
 
 ```php
 use Josantonius\MinecraftServerPlayerStat\MinecraftServer;
@@ -396,7 +397,7 @@ object(Josantonius\MinecraftServerPlayerStat\MinecraftPlayerStat) {
 }
 ```
 
-### Gets player statistics about items
+### Obtener las estadísticas del jugador sobre objetos
 
 ```php
 use Josantonius\MinecraftServerPlayerStat\MinecraftServer;
@@ -439,50 +440,7 @@ object(Josantonius\MinecraftServerPlayerStat\MinecraftPlayerStat) {
 }
 ```
 
-### Gets player statistics about time
-
-```php
-use Josantonius\MinecraftServerPlayerStat\MinecraftServer;
-
-$minecraftServer = new MinecraftServer(
-    version:     '1.19.2',
-    language:    'pt_br',
-    logsPath:    '/minecraft/logs',
-    statsPath:   '/minecraft/saves/world/stats',
-    storagePath: '/data/storage',
-);
-
-$stat = $minecraftServer->getPlayerStat('SpOok', 'tempo   desde a última morte');
-
-echo 'SpOok morreu pela última vez há ' . ticksToHour($stat->custom) . ' horas.';
-
-// SpOok morreu pela última vez há 10 horas.
-```
-
-**`MinecraftPlayerStat $stat`**
-
-```php
-object(Josantonius\MinecraftServerPlayerStat\MinecraftPlayerStat) {
-   'broken'     => NULL,
-   'crafted'    => NULL,
-   'custom'     => 720000, // ticks
-   'dropped'    => NULL,
-   'killed'     => NULL,
-   'killedBy'   => NULL,
-   'mined'      => NULL,
-   'pickedUp'   => NULL,
-   'used'       => NULL,
-   'key'        => 'time_since_death',
-   'prettyTerm' => 'Tempo desde a última morte',
-   'term'       => 'tempo   desde a última morte',
-   'type'       => 'stat',
-   'unitType'   => 'time',
-   'username'   => 'SpOok',
-   'uuid'       => '8d5b923d-37fb-38d1-8a6a-a17cd5ccf768',
-}
-```
-
-### Get list of available statistics
+### Obtener la lista de estadísticas disponibles
 
 ```php
 use Josantonius\MinecraftServerPlayerStat\MinecraftServer;
@@ -543,7 +501,7 @@ $terms = $minecraftServer->getAvailableStats();
 ]
 ```
 
-### Get list of players from the server
+### Obtener la lista de jugadores del servidor
 
 ```php
 use Josantonius\MinecraftServerPlayerStat\MinecraftServer;
@@ -575,8 +533,8 @@ $players = $minecraftServer->getPlayerList();
 
 ## Tests
 
-To run [tests](tests) you just need [composer](http://getcomposer.org/download/)
-and to execute the following:
+Para ejecutar las [pruebas](tests) necesitarás [Composer](http://getcomposer.org/download/)
+y seguir los siguientes pasos:
 
 ```console
 git clone https://github.com/josantonius/php-minecraft-server-player-stat.git
@@ -590,57 +548,60 @@ cd PHP-MimeType
 composer install
 ```
 
-Run unit tests with [PHPUnit](https://phpunit.de/):
+Ejecutar pruebas unitarias con [PHPUnit](https://phpunit.de/):
 
 ```console
 composer phpunit
 ```
 
-Run code standard tests with [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
+Ejecutar pruebas de estándares de código con [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
 
 ```console
 composer phpcs
 ```
 
-Run [PHP Mess Detector](https://phpmd.org/) tests to detect inconsistencies in code style:
+Ejecutar pruebas con [PHP Mess Detector](https://phpmd.org/) para detectar inconsistencias
+en el estilo de codificación:
 
 ```console
 composer phpmd
 ```
 
-Run all previous tests:
+Ejecutar todas las pruebas anteriores:
 
 ```console
 composer tests
 ```
 
-## TODO
+## Tareas pendientes
 
-- [ ] Add new feature
-- [ ] Improve tests
-- [ ] Improve documentation
-- [ ] Improve English translation in the README file
-- [ ] Refactor code for disabled code style rules (see phpmd.xml and phpcs.xml)
+- [ ] Añadir nueva funcionalidad
+- [ ] Mejorar pruebas
+- [ ] Mejorar documentación
+- [ ] Mejorar la traducción al inglés en el archivo README
+- [ ] Refactorizar código para las reglas de estilo de código deshabilitadas
+(ver [phpmd.xml](phpmd.xml) y [phpcs.xml](phpcs.xml))
 
-## Changelog
+## Registro de Cambios
 
-Detailed changes for each release are documented in the
-[release notes](https://github.com/josantonius/php-minecraft-server-player-stat/releases).
+Los cambios detallados de cada versión se documentan en las
+[notas de la misma](https://github.com/josantonius/php-minecraft-server-player-stat/releases).
 
-## Contribution
+## Contribuir
 
-Please make sure to read the [Contributing Guide](.github/CONTRIBUTING.md), before making a pull
-request, start a discussion or report a issue.
+Por favor, asegúrate de leer la [Guía de contribución](CONTRIBUTING.md) antes de hacer un
+_pull request_, comenzar una discusión o reportar un _issue_.
 
-Thanks to all [contributors](https://github.com/josantonius/php-minecraft-server-player-stat/graphs/contributors)! :heart:
+¡Gracias por [colaborar](https://github.com/josantonius/php-minecraft-server-player-stat/graphs/contributors)! :heart:
 
-## Sponsor
+## Patrocinar
 
-If this project helps you to reduce your development time,
-[you can sponsor me](https://github.com/josantonius#sponsor) to support my open source work :blush:
+Si este proyecto te ayuda a reducir el tiempo de desarrollo,
+[puedes patrocinarme](https://github.com/josantonius/lang/es-ES/README.md#patrocinar)
+para apoyar mi trabajo :blush:
 
-## License
+## Licencia
 
-This repository is licensed under the [MIT License](LICENSE).
+Este repositorio tiene una licencia [MIT License](LICENSE).
 
-Copyright © 2021-present, [Josantonius](https://github.com/josantonius#contact)
+Copyright © 2021-actualidad, [Josantonius](https://github.com/josantonius/lang/es-ES/README.md#contacto)

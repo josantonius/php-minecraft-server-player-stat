@@ -1,0 +1,24 @@
+[08:39:13] [User Authenticator #1/INFO]: UUID of player User1 is 5cd5d2e7-9b3a-3f06-befb-34f7a81b14c6
+[08:39:14] [Server thread/INFO]: Starting minecraft server version 1.17
+[08:39:14] [Server thread/INFO]: Loading properties
+[08:39:15] [Server thread/INFO]: Debug logging is disabled
+[08:39:15] [Server thread/INFO]: Using 4 threads for Netty based IO
+[08:39:15] [Server thread/INFO]: Server Ping Player Sample Count: 12
+[08:39:15] [Server thread/INFO]: Default game type: SURVIVAL
+[08:39:15] [Server thread/INFO]: Generating keypair
+[08:39:15] [Server thread/INFO]: Using default channel type
+[08:39:20] [User Authenticator #1/INFO]: UUID of player User2 is 8cb86072-3472-3b86-90f2-1e11b7188197
+[08:39:27] [Worker-Main-5/INFO]: Preparing spawn area: 0%
+[08:39:27] [Worker-Main-6/INFO]: Preparing spawn area: 0%
+[08:39:28] [Worker-Main-4/INFO]: Preparing spawn area: 0%
+[08:39:28] [Worker-Main-6/INFO]: Preparing spawn area: 0%
+[08:39:29] [Worker-Main-6/INFO]: Preparing spawn area: 0%
+[08:39:29] [Worker-Main-4/INFO]: Preparing spawn area: 0%
+[08:39:30] [Worker-Main-5/INFO]: Preparing spawn area: 0%
+[08:39:30] [Worker-Main-6/INFO]: Preparing spawn area: 4%
+[08:39:31] [Worker-Main-6/INFO]: Preparing spawn area: 19%
+[08:39:31] [Worker-Main-4/INFO]: Preparing spawn area: 34%
+[08:39:32] [Worker-Main-5/INFO]: Preparing spawn area: 60%
+[08:39:32] [Worker-Main-6/INFO]: Preparing spawn area: 87%
+[08:39:34] [Server thread/INFO]: Time elapsed: 7480 ms
+[08:39:40] [User Authenticator #1/INFO]: UUID of player User3 is 8d5b923d-37fb-38d1-8a6a-a17cd5ccf768

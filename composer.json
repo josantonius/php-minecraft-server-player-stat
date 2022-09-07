@@ -1,0 +1,73 @@
+{
+    "name": "josantonius/minecraft-server-player-stat",
+    "description": "PHP library to get live statistics about players on Minecraft servers.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "minecraft",
+        "minecraft-player-stats",
+        "minecraft-server-stats",
+        "minecraft-server-player-stat",
+        "spigot",
+        "minecraft-1-17",
+        "php",
+        "library"
+    ],
+    "authors": [
+        {
+            "name": "Josantonius",
+            "email": "hello@josantonius.dev",
+            "homepage": "https://josantonius.dev",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/josantonius/php-minecraft-server-player-stat/issues",
+        "source": "https://github.com/josantonius/php-minecraft-server-player-stat",
+        "discussions": "https://github.com/josantonius/php-minecraft-server-player-stat/discussions"
+    },
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "josantonius/json": "^v2.0",
+        "phpmd/phpmd": "^2.6",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Josantonius\\MinecraftServerPlayerStat\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Josantonius\\MinecraftServerPlayerStat\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "scripts": {
+        "coverage": "vendor/bin/phpunit --coverage-clover=coverage.xml",
+        "fix": [
+            "vendor/bin/phpcbf src tests"
+        ],
+        "htmlCoverage": "vendor/bin/phpunit --coverage-html coverage",
+        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml $(find . -name '*.php');",
+        "phpmd": "vendor/bin/phpmd src,tests text ./phpmd.xml",
+        "phpunit": "vendor/bin/phpunit",
+        "tests": [
+            "clear",
+            "@phpmd",
+            "@phpcs",
+            "@phpunit"
+        ]
+    }
+}
