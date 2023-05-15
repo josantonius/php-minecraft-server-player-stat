@@ -604,4 +604,4 @@ para apoyar mi trabajo :blush:
 
 Este repositorio tiene una licencia [MIT License](LICENSE).
 
-Copyright © 2021-actualidad, [Josantonius](https://github.com/josantonius/lang/es-ES/README.md#contacto)
+Copyright © 2021-2023, [Josantonius](https://github.com/josantonius/lang/es-ES/README.md#contacto)

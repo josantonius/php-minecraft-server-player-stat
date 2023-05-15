@@ -643,4 +643,4 @@ If this project helps you to reduce your development time,
 
 This repository is licensed under the [MIT License](LICENSE).
 
-Copyright © 2021-present, [Josantonius](https://github.com/josantonius#contact)
+Copyright © 2021-2023, [Josantonius](https://github.com/josantonius#contact)
